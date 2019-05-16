@@ -1,0 +1,7 @@
+- name: Update all Packages
+  hosts: all
+  tasks:
+    - name: Invoke Package Manager in Update Mode
+      package:
+        name: '*'
+        state: latest

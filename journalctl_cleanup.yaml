@@ -1,0 +1,7 @@
+- name: Cleanup System Journal
+  hosts: all
+  gather_facts: False
+  tasks:
+    - name: Clean out old journal files
+      shell: journalctl --vacuum-time=1h
+
