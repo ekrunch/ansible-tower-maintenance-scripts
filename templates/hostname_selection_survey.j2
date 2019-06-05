@@ -1,0 +1,28 @@
+{
+    "name": "",
+    "description": "",
+    "spec": [
+        {
+            "required": true,
+            "min": null,
+            "default": "True",
+            "max": null,
+            "question_description": "Should Fusion Middleware be installed in Addition to WebLogic",
+            "choices": "True\nFalse",
+            "variable": "install_fusion_middleware",
+            "question_name": "Install Fusion Middleware?",
+            "type": "multiplechoice"
+        },
+        {
+            "question_name": "Hostname",
+            "question_description": "Please select a hostname to install to",
+            "required": true,
+            "type": "multiplechoice",
+            "variable": "installation_target_hostname",
+            "min": null,
+            "max": null,
+            "default": "",
+            "choices": "{{ installation_target_hostnames }}"
+        }
+    ]
+}

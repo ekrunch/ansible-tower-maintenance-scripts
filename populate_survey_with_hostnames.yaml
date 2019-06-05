@@ -1,0 +1,11 @@
+- name: Get inventory from Ansible Tower
+  uri:
+    url: {{ tower_url }}
+    user: {{ tower_user }}
+    password: {{ tower_password }}
+    method: GET
+    force: yes
+    validate_certs: no
+  register: wli_12_inventory
+
+  debug: {{ wli_12_inventory }}
