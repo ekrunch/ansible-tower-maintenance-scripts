@@ -8,7 +8,8 @@
       user: "{{ ansible_tower_username }}"
       password: "{{ ansible_tower_password }}"
       method: GET
-      force: yes
+      return_content: True
+      force: True
       validate_certs: no
     register: wli_12_inventory
 
