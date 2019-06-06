@@ -27,4 +27,4 @@
     register: wli_12_inventory
 
   - debug:
-      msg: "{{ wli_12_inventory }}"
+      msg: "{{ wli_12_inventory | json_query('results.name[*]') }}"
