@@ -2,6 +2,15 @@
   hosts: all
   gather_facts: False
   tasks:
+  - name: Get API Token
+    uri:
+      url: "{{ ansible_tower_url }}/api/v2/authtoken/"
+      method: POST
+      body: '{"username": "{{ ansible_tower_username }}", "password": "{{ ansible_tower_password }}"}'
+      body_format: json
+      validate_certs: no
+    register: authtoken
+
   - name: Get inventory from Ansible Tower
     uri:
       url: "{{ ansible_tower_url }}/api/v2/inventories/{{ inventory_id }}/hosts/"
@@ -11,6 +20,8 @@
       return_content: True
       force: True
       validate_certs: no
+      headers:
+        Authorization: 'Token {{ authtoken }}'
     register: wli_12_inventory
 
   - debug:
