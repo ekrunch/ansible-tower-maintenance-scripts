@@ -1,11 +1,16 @@
-- name: Get inventory from Ansible Tower
-  uri:
-    url: {{ tower_url }}
-    user: {{ tower_user }}
-    password: {{ tower_password }}
-    method: GET
-    force: yes
-    validate_certs: no
-  register: wli_12_inventory
+- name: Set up Ansibne Tower Surveys with hostnames
+  hosts: all
+  gather_facts: False
+  tasks:
+  - name: Get inventory from Ansible Tower
+    uri:
+      url: "{{ ans_tower_url }}"
+      user: "{{ ans_tower_user }}"
+      password: "{{ ans_tower_password }}"
+      method: GET
+      force: yes
+      validate_certs: no
+    register: wli_12_inventory
 
-  debug: {{ wli_12_inventory }}
+  - debug:
+      msg: "{{ wli_12_inventory }}"
