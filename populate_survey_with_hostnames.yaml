@@ -4,7 +4,7 @@
   tasks:
   - name: Get inventory from Ansible Tower
     uri:
-      url: "{{ ansible_tower_url }}"
+      url: "{{ ansible_tower_url }}/api/v2/inventories/{{ inventory_id }}/hosts/"
       user: "{{ ansible_tower_username }}"
       password: "{{ ansible_tower_password }}"
       method: GET
