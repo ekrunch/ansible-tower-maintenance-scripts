@@ -4,24 +4,26 @@
   tasks:
   - name: Get API Token
     uri:
-      url: "{{ ansible_tower_url }}/api/v2/authtoken/"
+      url: "{{ ansible_tower_url }}/api/v2/tokens/"
       method: POST
-      body: '{"username": "{{ ansible_tower_username }}", "password": "{{ ansible_tower_password }}"}'
-      body_format: json
+      user: "{{ ansible_tower_username }}"
+      password: "{{ ansible_tower_password }}"
       validate_certs: no
+      force_basic_auth: yes
+      status_code: 201
+      return_content: yes
     register: authtoken
 
   - name: Get inventory from Ansible Tower
     uri:
       url: "{{ ansible_tower_url }}/api/v2/inventories/{{ inventory_id }}/hosts/"
-      user: "{{ ansible_tower_username }}"
-      password: "{{ ansible_tower_password }}"
-      method: GET
-      return_content: True
-      force: True
-      validate_certs: no
       headers:
-        Authorization: 'Token {{ authtoken }}'
+        Authorization: "Bearer {{ authtoken.json.token }}"
+        Content-Type: "application/json"
+      validate_certs: no
+      follow_redirects: all
+      return_content: True
+      method: GET
     register: wli_12_inventory
 
   - debug:
