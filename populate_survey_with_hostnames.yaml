@@ -24,7 +24,14 @@
       follow_redirects: all
       return_content: True
       method: GET
-    register: wli_12_inventory
+    register: ansible_tower_inv
 
   - debug:
-      msg: "{{ wli_12_inventory | json_query('results.summary_fields.name[*]') }}"
+      msg: "{{ ansible_tower_inv.content | json_query('count') }}"
+
+      #  - name: Display all inventory hosts
+      #msg: "{{ ansible_tower_inv.content }}"
+      #msg: "{{ ansible_tower_inventory.content | json_query('results[*].name') }}"
+      #msg: "{{ wli_12_inventory | json_query('count') }}"
+      #msg: "{{ wli_12_inventory | json_query('results[*].name') | list }}"
+      #msg: "{{ wli_12_inventory | json_query('results.summary_fields.name[*]') }}"
