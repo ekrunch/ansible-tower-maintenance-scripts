@@ -7,17 +7,17 @@
     output_file: "/tmp/foo"
   tasks:
 
-          - name: Execute yum and record output
-            shell: "yum -q repolist enabled | sed '1d' | awk '{print $1}'"
-            register: yumrepos
-            args:
-              warn: no
-
           - name: Create target file in case it doesn't exist
             file:
               path: "{{ output_file }}"
               state: touch
             delegate_to: localhost
+
+          - name: Execute yum and record output
+            shell: "yum -q repolist enabled | sed '1d' | awk '{print $1}'"
+            register: yumrepos
+            args:
+              warn: no
 
           - name: Write repos to file
             lineinfile:
