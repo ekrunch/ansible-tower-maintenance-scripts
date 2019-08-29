@@ -1,18 +1,26 @@
 ---
-- name: Yum Inventory
+- name: Yum Repos Inventory
   hosts: all
   serial: 1
+  gather_facts: true
+  vars:
+    output_file: "/tmp/foo"
   tasks:
 
           - name: Execute yum and record output
-            shell: "yum -q repolist --enabled | sed '1d' | awk '{print $1}'"
+            shell: "yum -q repolist enabled | sed '1d' | awk '{print $1}'"
             register: yumrepos
+
+          - name: Create target file in case it doesn't exist
+            file:
+              path: "{{ output_file }}"
+              state: touch
+            delegate_to: localhost
 
           - name: Write repos to file
             lineinfile:
-                    dest: /tmp/foo
-                    line: "{{ item }}"
-            with_items:
-                    - "{{ yumrepos.stdout_lines }}"
-          
-
+                    dest: "{{ output_file }}"
+                    line: "\"{{ inventory_hostname }}\",\"{{ item }}\""
+            loop: "{{ yumrepos.stdout_lines }}"
+            delegate_to: localhost
+                    
