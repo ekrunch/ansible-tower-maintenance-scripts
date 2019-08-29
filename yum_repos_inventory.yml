@@ -9,8 +9,9 @@
 
           - name: Execute yum and record output
             shell: "yum -q repolist enabled | sed '1d' | awk '{print $1}'"
-            warn: no
             register: yumrepos
+            args:
+              warn: no
 
           - name: Create target file in case it doesn't exist
             file:
