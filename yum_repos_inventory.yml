@@ -1,0 +1,18 @@
+---
+- name: Yum Inventory
+  hosts: all
+  serial: 1
+  tasks:
+
+          - name: Execute yum and record output
+            shell: "yum -q repolist --enabled | sed '1d' | awk '{print $1}'"
+            register: yumrepos
+
+          - name: Write repos to file
+            lineinfile:
+                    dest: /tmp/foo
+                    line: "{{ item }}"
+            with_items:
+                    - "{{ yumrepos.stdout_lines }}"
+          
+
