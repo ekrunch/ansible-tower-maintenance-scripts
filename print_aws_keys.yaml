@@ -5,6 +5,6 @@
     - name: Print AWS Keys
       debug:
         msg: |
-          AWS Access Key is {{ lookup('env','AWS_ACCESS_KEY_ID' }}
-          AWS Secret Key is {{ lookup('env','AWS_SECRET_ACCESS_KEY' }}
-          AWS SYS Token is {{ lookup('env','AWS_SECURITY_TOKEN' }}
+          AWS Access Key is {{ lookup('env','AWS_ACCESS_KEY_ID') }}
+          AWS Secret Key is {{ lookup('env','AWS_SECRET_ACCESS_KEY') }}
+          AWS SYS Token is {{ lookup('env','AWS_SECURITY_TOKEN') }}
