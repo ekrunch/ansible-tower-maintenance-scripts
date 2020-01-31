@@ -6,3 +6,7 @@
     - name: Gather all facts and print the results
       setup:
         gather_subset: "all"
+
+    - name: "Ansible | List all known variables and facts"
+      debug:
+        var: hostvars[inventory_hostname]
